@@ -5,18 +5,42 @@ import 'react-phone-input-2/lib/style.css';
 import { services } from '../data/services';
 import { BookingFormData } from '../types';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 
 export default function BookingForm() {
   const [phone, setPhone] = useState('');
   const { register, handleSubmit, reset, formState: { errors } } = useForm<BookingFormData>();
 
   const onSubmit = async (data: BookingFormData) => {
+    const serviceID = 'service_f2k8ouv';
+    const templateID = 'template_j324cge';
+    const publicKey = 'aOEPjwxwIs6bRsOu9';
+
+    const emailData = {
+      service_id: serviceID,
+      template_id: templateID,
+      user_id: publicKey,
+      template_params: {
+        to_name: "AG Electrical Team",  
+        from_name: data.name,          
+        from_email: data.email,        
+        from_location: data.location,  
+        from_phone: phone,             
+        from_service: data.service,    
+        message: data.message          
+      }
+    };
+
     try {
-      console.log({ ...data, phone });
+      await axios.post('https://api.emailjs.com/api/v1.0/email/send', emailData, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+
       toast.success('Booking submitted successfully!');
       reset();
       setPhone('');
     } catch (error) {
+      console.error('Failed to send email:', error);
       toast.error('Failed to submit booking. Please try again.');
     }
   };
@@ -29,6 +53,7 @@ export default function BookingForm() {
         </h2>
         <div className="max-w-2xl mx-auto">
           <form onSubmit={handleSubmit(onSubmit)} className="glass-effect p-8 rounded-2xl space-y-6">
+            
             {[
               { label: 'Name', type: 'text', name: 'name' },
               { label: 'Email', type: 'email', name: 'email' },
@@ -55,10 +80,11 @@ export default function BookingForm() {
               </div>
             ))}
 
+            
             <div>
               <label className="block text-white mb-2">Phone Number</label>
               <PhoneInput
-                country={'Ghana'}
+                country={'gh'}
                 value={phone}
                 onChange={setPhone}
                 containerClass="!w-full"
@@ -68,15 +94,16 @@ export default function BookingForm() {
               />
             </div>
 
+            
             <div>
               <label className="block text-white mb-2">Service Required</label>
               <select
                 {...register('service', { required: 'Please select a service' })}
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:ring-2 focus:ring-yellow-400 text-white"
               >
-                <option value="">Select a service</option>
+                <option value="" className="bg-blue-400">Select a service</option>
                 {services.map(service => (
-                  <option key={service.id} value={service.title}>
+                  <option key={service.id} value={service.title} className="bg-blue-500">
                     {service.title}
                   </option>
                 ))}
@@ -84,6 +111,7 @@ export default function BookingForm() {
               {errors.service && <p className="text-red-400 text-sm mt-1">{errors.service.message}</p>}
             </div>
 
+            
             <div>
               <label className="block text-white mb-2">Additional Details</label>
               <textarea
@@ -94,6 +122,7 @@ export default function BookingForm() {
               ></textarea>
             </div>
 
+          
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 py-4 px-6 rounded-lg font-semibold hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 transform hover:scale-105"
