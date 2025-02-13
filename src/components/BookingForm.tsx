@@ -27,7 +27,8 @@ export default function BookingForm() {
         from_location: data.location,  
         from_phone: phone,             
         from_service: data.service,    
-        message: data.message          
+        message: data.message , 
+        reply_to: data.email        
       }
     };
 
