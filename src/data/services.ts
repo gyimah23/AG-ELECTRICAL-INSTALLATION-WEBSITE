@@ -5,8 +5,8 @@ export const services: Service[] = [
     id: 1,
     title: 'New Building Wiring',
     description: 'Complete electrical wiring solutions for new constructions with the highest safety standards.',
-    image: 'https://www.bing.com/images/search?view=detailV2&ccid=KpzdF%2bme&id=E4311A00BA7CAA4D29342BBCD6BBF121C0A8617E&thid=OIP.KpzdF-megz5Zy2j6VS-8cwHaE8&mediaurl=https%3a%2f%2fstatic.homeguide.com%2fassets%2fimages%2fcontent%2fhomeguide-new-construction-wiring.jpg&cdnurl=https%3a%2f%2fth.bing.com%2fth%2fid%2fR.2a9cdd17e99e833e59cb68fa552fbc73%3frik%3dfmGowCHxu9a8Kw%26pid%3dImgRaw%26r%3d0&exph=1200&expw=1800&q=new+buinding+wiring&simid=608007889403204271&FORM=IRPRST&ck=493F7D12FB2035CAFE8E25A091AC5B29&selectedIndex=3&itb=0',
-    features: [
+    image:'https://th.bing.com/th/id/OIP.fXsRkLFeeMNqNCB7hQvRUAHaEK?pid=ImgDet&w=184&h=103&c=7&dpr=1.3'
+  features: [
       'Complete house wiring',
       'Circuit planning and installation',
       'Safety compliance checks',
